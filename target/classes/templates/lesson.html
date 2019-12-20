@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head >
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+    <title>主页</title>
+</head>
+<body>
+<div class="ui bottom attached segment pushable">
+    <div class="ui visible inverted blue left vertical sidebar menu">
+        <div class="item">
+            <div class="header">院系信息管理</div>
+            <div class="menu">
+                <a class="item" th:href="@{/index/school}">查看学院</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="header">学生信息管理</div>
+            <div class="menu">
+                <a class="item" th:href="@{/index/student}">查看个人信息</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="header">课程管理</div>
+            <div class="menu">
+                <a class="item" th:href="@{/index/lesson}">查看课程信息</a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="header">成绩管理</div>
+            <div class="menu">
+                <a class="item" th:href="@{/index/grade}">查看成绩</a>
+            </div>
+        </div>
+    </div>
+    <div class="pusher">
+        <div class="ui center aligned container">
+            <table class="ui table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>课程</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lesson,iterStat : ${page.content}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${lesson.cname}">aa</td>
+                    <td>
+                        <a href="#" class="ui mini teal button" th:href="@{/index/lesson/{id}/input(id=${lesson.id})}">编辑</a>
+                        <a href="#" class="ui mini red button" th:href="@{/index/lesson/{id}/delete(id=${lesson.id})}">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="6">
+                        <div class="ui pagination menu" th:if="${page.totalPages}>1">
+                            <a href="#" class="item" th:href="@{/index/lesson(page=${page.number}-1)}" th:unless="${page.first}">上一页</a>
+                            <a href="#" class="item" th:href="@{/index/lesson(page=${page.number}+1)}" th:unless="${page.last}">下一页</a>
+                        </div>
+                        <a href="#" class="ui mini teal right floated basic button" th:href="@{/index/lesson/input}">新增</a>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script>
+    // showing multiple
+    $('.visible.example .ui.sidebar')
+        .sidebar({
+            context: '.visible.example .bottom.segment'
+        })
+        .sidebar('hide')
+    ;
+
+</script>
+</html>
